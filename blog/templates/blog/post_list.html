@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title> Hablemos de informatica </title>
-    </head>
-    <body>
-        <div>
-          <h1><i><font color="navy"><font face= "Cursiva">  Hablemos un poco de informatica </font></font></i></h1>
-        </div>
-        {% for post in posts %}
-                <div>
-                <p>publicado el: {{ post.published_date }}</p>
-                <h1><a href="">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaks }}</p>
-                </div>
-          {% endfor %}
-          </body>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+{% for post in posts %}
+                        <div class="post">
+                           {% if post.published_date %}
+                            <div class="date">
+                                {{ post.published_date }}
+                            </div>
+                            {% endif %}
+                            <h1>
+                            <a href="{% url 'blog.views.post_detail' pk=post.pk %}">{{ post.title }}</a>
+                            </h1>
+                            <p>{{ post.text|linebreaks }}</p>
+                        </div>
+{% endfor %}
+{% endblock content %}
